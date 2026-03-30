@@ -490,55 +490,61 @@ func updateCaffeinateStatus(client mqtt.Client) {
 func setDevice(client mqtt.Client, DiscoveryPrefix string) {
 
 	keepawake := map[string]interface{}{
-		"p":             "switch",
-		"name":          "Keep Awake",
-		"unique_id":     hostname + "_keepwake",
-		"command_topic": getTopicPrefix() + "/command/keepawake",
-		"payload_on":    "true",
-		"payload_off":   "false",
-		"state_topic":   getTopicPrefix() + "/status/caffeinate",
-		"icon":          "mdi:coffee",
+		"p":               "switch",
+		"name":            "Keep Awake",
+		"unique_id":       hostname + "_keepwake",
+		"entity_category": "config",
+		"command_topic":   getTopicPrefix() + "/command/keepawake",
+		"payload_on":      "true",
+		"payload_off":     "false",
+		"state_topic":     getTopicPrefix() + "/status/caffeinate",
+		"icon":            "mdi:coffee",
 	}
 
 	displaywake := map[string]interface{}{
-		"p":             "button",
-		"name":          "Display Wake",
-		"unique_id":     hostname + "_displaywake",
-		"command_topic": getTopicPrefix() + "/command/displaywake",
-		"payload_press": "displaywake",
-		"icon":          "mdi:monitor",
+		"p":               "button",
+		"name":            "Display Wake",
+		"entity_category": "config",
+		"unique_id":       hostname + "_displaywake",
+		"command_topic":   getTopicPrefix() + "/command/displaywake",
+		"payload_press":   "displaywake",
+		"icon":            "mdi:monitor",
 	}
 
 	displaysleep := map[string]interface{}{
-		"p":             "button",
-		"name":          "Display Sleep",
-		"unique_id":     hostname + "_displaywake",
-		"command_topic": getTopicPrefix() + "/command/displaysleep",
-		"payload_press": "displaysleep",
-		"icon":          "mdi:monitor-off",
+		"p":               "button",
+		"name":            "Display Sleep",
+		"entity_category": "config",
+		"unique_id":       hostname + "_displaysleep",
+		"command_topic":   getTopicPrefix() + "/command/displaysleep",
+		"payload_press":   "displaysleep",
+		"icon":            "mdi:monitor-off",
 	}
 
 	screensaver := map[string]interface{}{
-		"p":             "button",
-		"name":          "Screensaver",
-		"unique_id":     hostname + "_screensaver",
-		"command_topic": getTopicPrefix() + "/command/screensaver",
-		"payload_press": "screensaver",
-		"icon":          "mdi:monitor-star",
+		"p":               "button",
+		"name":            "Screensaver",
+		"unique_id":       hostname + "_screensaver",
+		"entity_category": "config",
+		"command_topic":   getTopicPrefix() + "/command/screensaver",
+		"payload_press":   "screensaver",
+		"icon":            "mdi:monitor-star",
 	}
 
 	sleep := map[string]interface{}{
-		"p":             "button",
-		"name":          "Sleep",
-		"unique_id":     hostname + "_sleep",
-		"command_topic": getTopicPrefix() + "/command/sleep",
-		"payload_press": "sleep",
-		"icon":          "mdi:sleep",
+		"p":               "button",
+		"name":            "Sleep",
+		"entity_category": "config",
+		"unique_id":       hostname + "_sleep",
+		"command_topic":   getTopicPrefix() + "/command/sleep",
+		"payload_press":   "sleep",
+		"icon":            "mdi:sleep",
 	}
 
 	shutdown := map[string]interface{}{
 		"p":                  "button",
 		"name":               "Shutdown",
+		"entity_category":    "config",
 		"unique_id":          hostname + "_shutdown",
 		"command_topic":      getTopicPrefix() + "/command/shutdown",
 		"payload_press":      "shutdown",
@@ -546,32 +552,35 @@ func setDevice(client mqtt.Client, DiscoveryPrefix string) {
 		"icon":               "mdi:power",
 	}
 	mute := map[string]interface{}{
-		"p":             "switch",
-		"name":          "Mute",
-		"unique_id":     hostname + "_mute",
-		"command_topic": getTopicPrefix() + "/command/mute",
-		"payload_on":    "true",
-		"payload_off":   "false",
-		"state_topic":   getTopicPrefix() + "/status/mute",
-		"icon":          "mdi:volume-mute",
+		"p":               "switch",
+		"name":            "Mute",
+		"entity_category": "config",
+		"unique_id":       hostname + "_mute",
+		"command_topic":   getTopicPrefix() + "/command/mute",
+		"payload_on":      "true",
+		"payload_off":     "false",
+		"state_topic":     getTopicPrefix() + "/status/mute",
+		"icon":            "mdi:volume-mute",
 	}
 
 	volume := map[string]interface{}{
-		"p":             "number",
-		"name":          "Volume",
-		"unique_id":     hostname + "_volume",
-		"command_topic": getTopicPrefix() + "/command/volume",
-		"state_topic":   getTopicPrefix() + "/status/volume",
-		"min_value":     0,
-		"max_value":     100,
-		"step":          1,
-		"mode":          "slider",
-		"icon":          "mdi:volume-high",
+		"p":               "number",
+		"name":            "Volume",
+		"unique_id":       hostname + "_volume",
+		"entity_category": "config",
+		"command_topic":   getTopicPrefix() + "/command/volume",
+		"state_topic":     getTopicPrefix() + "/status/volume",
+		"min_value":       0,
+		"max_value":       100,
+		"step":            1,
+		"mode":            "slider",
+		"icon":            "mdi:volume-high",
 	}
 
 	battery := map[string]interface{}{
 		"p":                   "sensor",
 		"name":                "Battery",
+		"entity_category":     "config",
 		"unique_id":           hostname + "_battery",
 		"state_topic":         getTopicPrefix() + "/status/battery",
 		"enabled_by_default":  false,
@@ -596,10 +605,11 @@ func setDevice(client mqtt.Client, DiscoveryPrefix string) {
 	}
 
 	device := map[string]interface{}{
-		"ids":  getSerialnumber(),
-		"name": hostname,
-		"mf":   "Apple",
-		"mdl":  getModel(),
+		"ids":            getSerialnumber(),
+		"name":           hostname,
+		"mf":             "Apple",
+		"suggested_area": "Office",
+		"mdl":            getModel(),
 	}
 
 	object := map[string]interface{}{
