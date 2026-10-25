@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Per-user LaunchAgent: install in ~/Library/LaunchAgents/ (not /Library/LaunchDaemons/).
+  Running in the user's session is what lets osascript, `shortcuts run` and `open -a ScreenSaverEngine` work.
+-->
 <plist version="1.0">
     <dict>
         <key>Label</key>
@@ -8,13 +12,19 @@
         <string>/Users/USERNAME/mac2mqtt/mac2mqtt</string>
         <key>WorkingDirectory</key>
         <string>/Users/USERNAME/mac2mqtt/</string>
+        <key>LimitLoadToSessionType</key>
+        <string>Aqua</string>
+        <key>ProcessType</key>
+        <string>Interactive</string>
         <key>RunAtLoad</key>
         <true/>
         <key>KeepAlive</key>
         <true/>
+        <key>ThrottleInterval</key>
+        <integer>10</integer>
         <key>StandardErrorPath</key>
-        <string>/tmp/mac2mqtt.job.err</string>
+        <string>/Users/USERNAME/Library/Logs/mac2mqtt.log</string>
         <key>StandardOutPath</key>
-        <string>/tmp/mac2mqtt.job.out</string>
+        <string>/Users/USERNAME/Library/Logs/mac2mqtt.log</string>
     </dict>
 </plist>

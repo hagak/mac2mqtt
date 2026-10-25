@@ -37,16 +37,18 @@ Edit `mac2mqtt.yaml` (the sample file is in this repository), make binary execut
 
 ## Running in the background
 
-You need `mac2mqtt.yaml` and `mac2mqtt` to be placed in the directory `/Users/USERNAME/mac2mqtt/`,
-then you need edit the file `com.hagak.mac2mqtt.plist`
-and replace `USERNAME` with your username. Then put the file in `/Library/LaunchAgents/`.
+Run it as a per-user LaunchAgent, so it runs in your login session (osascript, Shortcuts and the screensaver
+need that; a root LaunchDaemon can't reach them).
 
+Place `mac2mqtt.yaml` and `mac2mqtt` in `/Users/USERNAME/mac2mqtt/`, replace `USERNAME` in
+`com.hagak.mac2mqtt.plist` with your username, and copy it to `~/Library/LaunchAgents/`. Then:
 
-And run:
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.hagak.mac2mqtt.plist
 
-    launchctl load /Library/LaunchAgents/com.hagak.mac2mqtt.plist
+Stop it with `launchctl bootout gui/$(id -u)/com.hagak.mac2mqtt`, restart it with
+`launchctl kickstart -k gui/$(id -u)/com.hagak.mac2mqtt`. The log is `~/Library/Logs/mac2mqtt.log`.
 
-(To stop you need to run `launchctl unload /Library/LaunchAgents/com.hagak.mac2mqtt.plist`)
+The Shutdown button uses `System Events`; macOS asks once to allow mac2mqtt to control it.
 
 ## Home Assistant sample config
 
