@@ -170,7 +170,8 @@ func currentDisplay() (string, error) {
 }
 
 func betterDisplayRequest(action, display, query string) (string, error) {
-	resp, err := httpClient.Get(betterDisplay + "/" + action + "?name=" + url.QueryEscape(display) + "&" + query)
+	// PathEscape: BetterDisplay wants %20 for spaces, not QueryEscape's "+"
+	resp, err := httpClient.Get(betterDisplay + "/" + action + "?name=" + url.PathEscape(display) + "&" + query)
 	if err != nil {
 		return "", fmt.Errorf("BetterDisplay %s: %v", action, err)
 	}
